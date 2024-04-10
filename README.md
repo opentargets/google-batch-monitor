@@ -15,7 +15,7 @@ The configuration is in JSON format and in this case it has been prepared in adv
 This is the bucket where Batch will read the code from.
 ```bash
 gsutil cp \
-    runner.sh requirements.txt code.py \
+    runner.sh requirements.txt hello_world.py \
     gs://gentropy-tmp/batch-example/code
 ```
 
@@ -29,7 +29,7 @@ gcloud batch jobs submit \
     --location=europe-west1
 ```
 
-## Monitor job progress
-Job will shortly appear in the Google Batch dashboard: https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
+## 4. Monitor job progress
+Job will shortly appear in the Google Batch dashboard (give it 15-30 seconds): https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
 
-Logs for each individual task will appear under `gs://gentropy-tmp/batch-example/logs/<JOB_ID>`.
+Logs for each individual task will appear under `gs://gentropy-tmp/batch-example/logs`.
