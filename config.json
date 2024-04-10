@@ -11,7 +11,7 @@
                 ],
                 "computeResource": {
                     "cpuMilli": 1000,
-                    "memoryMib": 16000,
+                    "memoryMib": 16000
                 },
                 "volumes": [
                     {
