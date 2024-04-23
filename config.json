@@ -11,7 +11,7 @@
                 ],
                 "computeResource": {
                     "cpuMilli": 1000,
-                    "memoryMib": 16000
+                    "memoryMib": 6000
                 },
                 "volumes": [
                     {
@@ -24,15 +24,15 @@
                 "maxRetryCount": 1,
                 "maxRunDuration": "3600s"
             },
-            "taskCount": 10,
-            "parallelism": 4
+            "taskCount": 64,
+            "parallelism": 8
         }
     ],
     "allocationPolicy": {
         "instances": [
             {
                 "policy": {
-                    "machineType": "n2d-highmem-2",
+                    "machineType": "n2d-highmem-4",
                     "provisioningModel": "SPOT"
                 }
             }
