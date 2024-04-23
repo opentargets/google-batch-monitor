@@ -30,6 +30,6 @@ gcloud batch jobs submit \
 ```
 
 ## 4. Monitor job progress
-Job will shortly appear in the Google Batch dashboard (give it 15-30 seconds): https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
+Job will shortly appear in the Google Batch dashboard (give it up to a minute): https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
 
 Logs for each individual task will appear under `gs://gentropy-tmp/batch-example/logs`.

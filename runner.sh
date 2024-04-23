@@ -17,7 +17,7 @@ sudo apt -y update
 export HOME=/tmp/home
 mkdir -p $HOME
 sudo apt install bc
-sudo apt install -y curl git gcc make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev
+sudo apt install -y curl git gcc make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev default-jdk
 if ! [ -d "$HOME/.pyenv" ]; then
     curl https://pyenv.run | bash
 fi
@@ -32,7 +32,8 @@ echo ">>> Update PIP and setuptools"
 python3 -m pip install --upgrade pip setuptools
 echo $?
 echo ">>> Install packages"
-python3 -m pip install -r ${MOUNT_ROOT}/code/requirements.txt
+#python3 -m pip install -r ${MOUNT_ROOT}/code/requirements.txt
+python3 -m pip install git+https://github.com/opentargets/gentropy@dev
 echo $?
 # Release dependency installation lock.
 rmdir /tmp/install.lock
