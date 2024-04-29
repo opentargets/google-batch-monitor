@@ -8,13 +8,11 @@ import hail as hl
 batch_task_index = int(sys.argv[1])
 print(f"This is worker for task # {batch_task_index}")
 
-path_study_locus = (
-    "gs://genetics-portal-dev-analysis/yt4/ukbb_ppp_no_mhc_collected_locus_2Mb"
-)
+path_study_locus = "gs://genetics-portal-dev-analysis/yt4/ukbb_ppp_no_mhc_collected_locus_2Mb_pval_filter"
 path_study_index = (
     "gs://gentropy-tmp/finemapping/ukbb_study_index_corrected2_2024-04-23"
 )
-path_out = "gs://gentropy-tmp/finemapping/v4_2024-04-24_1k_2Mb"
+path_out = "gs://gentropy-tmp/finemapping/v5_2024-04-25_all_2Mb"
 
 hail_home = os.path.dirname(hl.__file__)
 session = Session(
