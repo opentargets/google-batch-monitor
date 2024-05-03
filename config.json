@@ -10,8 +10,8 @@
                     }
                 ],
                 "computeResource": {
-                    "cpuMilli": 1000,
-                    "memoryMib": 6000
+                    "cpuMilli": 2000,
+                    "memoryMib": 12000
                 },
                 "volumes": [
                     {
@@ -21,8 +21,22 @@
                         "mountPath": "/mnt/share"
                     }
                 ],
-                "maxRetryCount": 1,
-                "maxRunDuration": "3600s"
+                "maxRunDuration": "7200s",
+                "maxRetryCount": 3,
+                "lifecyclePolicies": [
+                    {
+                        "action": "RETRY_TASK",
+                        "actionCondition": {
+                            "exitCodes": [37]
+                        }
+                    },
+                    {
+                        "action": "FAIL_TASK",
+                        "actionCondition": {
+                            "exitCodes": [73]
+                        }
+                    }
+                ]
             },
             "taskCount": 17393,
             "parallelism": 4000

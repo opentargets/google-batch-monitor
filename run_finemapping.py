@@ -12,7 +12,7 @@ path_study_locus = "gs://genetics-portal-dev-analysis/yt4/ukbb_ppp_no_mhc_collec
 path_study_index = (
     "gs://gentropy-tmp/finemapping/ukbb_study_index_corrected2_2024-04-23"
 )
-path_out = "gs://gentropy-tmp/finemapping/v5_2024-04-25_all_2Mb"
+path_out = "gs://gentropy-tmp/finemapping/v6_2024-04-29_pval_2Mb"
 
 hail_home = os.path.dirname(hl.__file__)
 session = Session(
@@ -35,6 +35,9 @@ id_to_process = str(
         .loc[batch_task_index, "studyLocusId"]
     )
 )
+
+# Remove the path in case it already exists (re-run due to VM preemption, for example).
+os.system(f"gsutil -m rm -r {path_out}/{id_to_process}")
 
 SusieFineMapperStep(
     session=session,
