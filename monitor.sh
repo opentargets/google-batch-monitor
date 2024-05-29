@@ -20,8 +20,8 @@ while true; do
     cat instances.$TIMESTAMP \
         | parallel --jobs 64 --colsep ',' 'timeout 15 gcloud compute ssh {1} --zone {2} -- free 2>/dev/null' \
         | grep Mem: \
-        | awk '{print "100 *" $3 "/" $2}' \
-        | bc \
+        | awk '{print "scale=2; 100*(1-" $7 "/" $2 ")"}' \
+        | bc -l \
         > $F
     # Write report.
     export REPORT="$TIMESTAMP,${NUM_INSTANCES},$(datamash min 1 <$F),$(datamash median 1 <$F),$(datamash max 1 <$F)"

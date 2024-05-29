@@ -29,7 +29,7 @@ pyenv global 3.10.11
 if ! [ -d /tmp/dependencies_installed ]; then
     python3 -m ensurepip
     python3 -m pip install --upgrade pip setuptools
-    python3 -m pip install git+https://github.com/opentargets/gentropy@dev
+    python3 -m pip install git+https://github.com/opentargets/gentropy@tskir-susie-deps
 fi
 # Mark dependency installation complete
 mkdir -p /tmp/dependencies_installed
@@ -45,11 +45,6 @@ echo "!!! Returncode ${RETURNCODE} Index ${BATCH_TASK_INDEX} Overhead $(echo "$t
 
 if [ ${RETURNCODE} == 0 ]; then
     echo "All good, exit as 0"
-    exit 0
-fi
-
-if (grep "ValueError: index list must be non-empty" /tmp/python.${BATCH_TASK_INDEX}.log &>/dev/null); then
-    echo "Known error, exit as 0"
     exit 0
 fi
 

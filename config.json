@@ -11,7 +11,7 @@
                 ],
                 "computeResource": {
                     "cpuMilli": 2000,
-                    "memoryMib": 12000
+                    "memoryMib": 14000
                 },
                 "volumes": [
                     {
@@ -25,12 +25,6 @@
                 "maxRetryCount": 3,
                 "lifecyclePolicies": [
                     {
-                        "action": "RETRY_TASK",
-                        "actionCondition": {
-                            "exitCodes": [37]
-                        }
-                    },
-                    {
                         "action": "FAIL_TASK",
                         "actionCondition": {
                             "exitCodes": [73]
@@ -38,7 +32,7 @@
                     }
                 ]
             },
-            "taskCount": 17393,
+            "taskCount": 100,
             "parallelism": 4000
         }
     ],
@@ -46,7 +40,7 @@
         "instances": [
             {
                 "policy": {
-                    "machineType": "n2d-highmem-4",
+                    "machineType": "n2d-highmem-8",
                     "provisioningModel": "SPOT"
                 }
             }

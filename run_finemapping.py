@@ -8,11 +8,10 @@ import hail as hl
 batch_task_index = int(sys.argv[1])
 print(f"This is worker for task # {batch_task_index}")
 
-path_study_locus = "gs://genetics-portal-dev-analysis/yt4/ukbb_ppp_no_mhc_collected_locus_2Mb_pval_filter"
-path_study_index = (
-    "gs://gentropy-tmp/finemapping/ukbb_study_index_corrected2_2024-04-23"
-)
-path_out = "gs://gentropy-tmp/finemapping/v6_2024-04-29_pval_2Mb"
+path_study_locus = "gs://ukb_ppp_eur_data/collected"
+path_study_index = "gs://ukb_ppp_eur_data/study_index"
+path_out = "gs://ukb_ppp_eur_data/finemapped"
+logs_out = "gs://ukb_ppp_eur_data/finemapping_logs"
 
 hail_home = os.path.dirname(hl.__file__)
 session = Session(
@@ -45,6 +44,20 @@ SusieFineMapperStep(
     study_locus_collected_path=path_study_locus,
     study_index_path=path_study_index,
     output_path=path_out,
-    locus_radius=1_000_000,
+    locus_radius=1_500_000,
     max_causal_snps=10,
+    primary_signal_pval_threshold=1,
+    secondary_signal_pval_threshold=1,
+    purity_mean_r2_threshold=0,
+    purity_min_r2_threshold=0,
+    cs_lbf_thr=2,
+    sum_pips=0.99,
+    logging=True,
+    susie_est_tausq=False,
+    run_carma=False,
+    run_sumstat_imputation=False,
+    carma_time_limit=600,
+    imputed_r2_threshold=0.9,
+    ld_score_threshold=5,
+    output_path_log=logs_out,
 )
