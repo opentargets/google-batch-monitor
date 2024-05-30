@@ -2,16 +2,21 @@
 
 ## 1. Prepare job configuration
 
-The configuration is in JSON format and in this case it has been prepared in advance in [`config.json`](./config.json). It specifies, in order:
+Modify the configuration in [`config.json`](./config.json):
 
-- Which script to run on the machine
-- Which computing resources are required to run the job (note that it uses a weird "milli-CPU" unit, so if you want one CPU per task, you specify 1000)
-- In which Storage bucket the code is stored, and where to mount it on each worker machine
-- Maximum retry count for task and maximum duration in seconds
-- How many tasks are there going to be in total (in this example, 10; in real life example, this would be for example the number of rows in a table that we are iterating over)
-- How many tasks to run concurrently, in this example 4, but it can be as high as 1,000 or 2,000 as needed.
-- Machine worker type
-- Provisioning model and logging policy
+- `remotePath` to point to a unique location (so that multiple runs can be done in parallel), for example: `gentropy-tmp/YOUR-UNIQUE-ID`
+- `taskCount` to specify the total number of tasks (dataframe rows)
+
+Set the shell variable to the same location as `remotePath`:
+
+```bash
+export REMOTE_PATH="gentropy-tmp/YOUR-UNIQUE-ID"
+```
+
+Modify running instructions in `run_finemapping.py`:
+
+- Input and output paths at the top
+- Finemapping parameters at the bottom
 
 ## 2. Copy code and submit Google Batch job
 
@@ -20,7 +25,7 @@ The first positional argument is job ID. (A job is a single submission which spa
 ```bash
 gsutil cp \
     runner.sh requirements.txt run_finemapping.py \
-    gs://gentropy-tmp/batch-example/code && \
+    gs://${REMOTE_PATH}/code && \
 gcloud batch jobs submit \
     batch-example-$(date +%Y%m%d-%H%M%S) \
     --config=config.json \
@@ -28,11 +33,13 @@ gcloud batch jobs submit \
     --location=europe-west1
 ```
 
+Note the unique job ID that has been assigned. You will need it for monitoring.
+
 ## 3. Monitor job progress
 
 Job will shortly appear in the Google Batch dashboard (give it up to a minute): https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
 
-Logs for each individual task will appear under `gs://gentropy-tmp/batch-example/logs`.
+Logs for each individual task will appear under `gs://${REMOTE_PATH}/logs`.
 
 ## 4. Log resource usage
 
@@ -61,19 +68,21 @@ Then SSH to it:
 ```bash
 gcloud compute ssh batch-monitor --zone europe-west1-b
 screen
-sudo apt install bc datamash parallel
+sudo apt install bc datamash parallel dos2unix
 ```
 
 Copy `monitor.sh`:
 
 ```bash
-gcloud compute scp monitor.sh batch-monitor:~ --zone europe-west1-b
+gcloud compute scp monitor.sh poll.sh batch-monitor:~ --zone europe-west1-b
 ```
 
 Once the job has started running, run `monitor.sh`:
 
 ```bash
-bash monitor.sh
+bash monitor.sh UNIQUE_JOB_ID
 ```
+
+Substitute the unique job ID you got from step 3.
 
 It will monitor instance memory usage and output it to screen and into a log file every few minutes. Once there are no instances remaining, it will exit automatically.

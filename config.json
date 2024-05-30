@@ -10,19 +10,19 @@
                     }
                 ],
                 "computeResource": {
-                    "cpuMilli": 2000,
-                    "memoryMib": 14000
+                    "cpuMilli": 4000,
+                    "memoryMib": 25000
                 },
                 "volumes": [
                     {
                         "gcs": {
-                            "remotePath": "gentropy-tmp/batch-example"
+                            "remotePath": "gentropy-tmp/batch-finemapping-finngen100-3mb-carma"
                         },
                         "mountPath": "/mnt/share"
                     }
                 ],
                 "maxRunDuration": "7200s",
-                "maxRetryCount": 3,
+                "maxRetryCount": 5,
                 "lifecyclePolicies": [
                     {
                         "action": "FAIL_TASK",
@@ -32,7 +32,7 @@
                     }
                 ]
             },
-            "taskCount": 16015,
+            "taskCount": 100,
             "parallelism": 4000
         }
     ],
@@ -40,10 +40,10 @@
         "instances": [
             {
                 "policy": {
-                    "machineType": "n2d-highmem-8",
+                    "machineType": "n2-highmem-4",
                     "provisioningModel": "SPOT",
                     "bootDisk": {
-                        "sizeGb": 200
+                        "sizeGb": 60
                     }
                 }
             }

@@ -8,10 +8,12 @@ import hail as hl
 batch_task_index = int(sys.argv[1])
 print(f"This is worker for task # {batch_task_index}")
 
-path_study_locus = "gs://ukb_ppp_eur_data/collected"
-path_study_index = "gs://ukb_ppp_eur_data/study_index"
-path_out = "gs://ukb_ppp_eur_data/finemapped"
-logs_out = "gs://ukb_ppp_eur_data/finemapping_logs"
+path_study_locus = (
+    "gs://genetics-portal-dev-analysis/dc16/finngen_100_sl.parquet_PATCHED-2024-05-30"
+)
+path_study_index = "gs://finngen_data/r10/study_index"
+path_out = "gs://finngen_data/100_3mb_carma/finemapped"
+logs_out = "gs://finngen_data/100_3mb_carma/finemapping_logs"
 
 hail_home = os.path.dirname(hl.__file__)
 session = Session(
@@ -20,9 +22,9 @@ session = Session(
     extended_spark_conf={
         "spark.jars": "https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar",
         "spark.dynamicAllocation.enabled": "false",
-        "spark.driver.memory": "14g",
+        "spark.driver.memory": "30g",
         "spark.kryoserializer.buffer.max": "500m",
-        "spark.driver.maxResultSize": "3g",
+        "spark.driver.maxResultSize": "5g",
     },
 )
 
@@ -54,9 +56,9 @@ SusieFineMapperStep(
     sum_pips=0.99,
     logging=True,
     susie_est_tausq=False,
-    run_carma=False,
+    run_carma=True,
     run_sumstat_imputation=False,
-    carma_time_limit=600,
+    carma_time_limit=6000,
     imputed_r2_threshold=0.9,
     ld_score_threshold=5,
     output_path_log=logs_out,

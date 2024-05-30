@@ -15,6 +15,7 @@ done
 export HOME=/tmp/home
 mkdir -p $HOME
 if ! [ -d /tmp/dependencies_installed ]; then
+    sudo fallocate -l 32G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && echo '/swapfile   none    swap    sw    0   0' | sudo tee -a /etc/fstab > /dev/null
     sudo apt -y update
     sudo apt install -y bc
     sudo apt install -y curl git gcc make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libffi-dev default-jdk
