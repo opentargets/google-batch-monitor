@@ -29,7 +29,7 @@ pyenv global 3.10.11
 if ! [ -d /tmp/dependencies_installed ]; then
     python3 -m ensurepip
     python3 -m pip install --upgrade pip setuptools
-    python3 -m pip install git+https://github.com/opentargets/gentropy@tskir-susie-deps
+    python3 -m pip install git+https://github.com/opentargets/gentropy@dev
 fi
 # Mark dependency installation complete
 mkdir -p /tmp/dependencies_installed

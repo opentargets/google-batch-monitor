@@ -20,7 +20,7 @@ session = Session(
     extended_spark_conf={
         "spark.jars": "https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar",
         "spark.dynamicAllocation.enabled": "false",
-        "spark.driver.memory": "24g",
+        "spark.driver.memory": "14g",
         "spark.kryoserializer.buffer.max": "500m",
         "spark.driver.maxResultSize": "3g",
     },
