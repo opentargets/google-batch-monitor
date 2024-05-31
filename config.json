@@ -16,7 +16,7 @@
                 "volumes": [
                     {
                         "gcs": {
-                            "remotePath": "gentropy-tmp/batch-finemapping-finngen100-3mb-carma"
+                            "remotePath": "gentropy-tmp/batch-finemapping-ukb-ppp-remaining"
                         },
                         "mountPath": "/mnt/share"
                     }
@@ -32,7 +32,7 @@
                     }
                 ]
             },
-            "taskCount": 100,
+            "taskCount": 451,
             "parallelism": 4000
         }
     ],
