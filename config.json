@@ -27,7 +27,7 @@
                     {
                         "action": "FAIL_TASK",
                         "actionCondition": {
-                            "exitCodes": [73]
+                            "exitCodes": [73, 50005]
                         }
                     }
                 ]
