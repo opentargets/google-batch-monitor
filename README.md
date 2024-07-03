@@ -6,26 +6,14 @@ Modify the configuration in [`config.json`](./config.json):
 
 - `remotePath` to point to a unique location (so that multiple runs can be done in parallel), for example: `gentropy-tmp/YOUR-UNIQUE-ID`
 - `taskCount` to specify the total number of tasks (dataframe rows)
-
-Set the shell variable to the same location as `remotePath`:
-
-```bash
-export REMOTE_PATH="gentropy-tmp/YOUR-UNIQUE-ID"
-```
-
-Modify running instructions in `run_finemapping.py`:
-
-- Input and output paths at the top
-- Finemapping parameters at the bottom
+- Study loci in `taskEnvironments` (currently need to be specified manually)
+- Inputs, outputs, parameters of the step
 
 ## 2. Copy code and submit Google Batch job
 
-The first positional argument is job ID. (A job is a single submission which spawns a collection of tasks.) It has to be globally unique for all jobs, including ones submitted previously. Because of this, we append timestamp, so the resulting job ID looks something like: `batch-example-20240410-115253`.
+The first positional argument is job ID. (A job is a single submission which spawns a collection of tasks.) It has to be globally unique for all jobs, including ones submitted previously. Because of this, we append a timestamp, so the resulting job ID looks something like: `batch-example-20240410-115253`.
 
 ```bash
-gsutil cp \
-    runner.sh requirements.txt run_finemapping.py \
-    gs://${REMOTE_PATH}/code && \
 gcloud batch jobs submit \
     batch-example-$(date +%Y%m%d-%H%M%S) \
     --config=config.json \
