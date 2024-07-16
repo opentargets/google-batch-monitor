@@ -9,7 +9,7 @@
                             "entrypoint": "/bin/sh",
                             "commands": [
                                 "-c",
-                                "poetry run gentropy step=susie_finemapping step.study_locus_to_finemap=$STUDYLOCUSID step.study_locus_collected_path=gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_03 step.study_index_path=gs://ukb_ppp_eur_data/study_index step.output_path=gs://gentropy-tmp/test_finemapped_out step.max_causal_snps=10 step.primary_signal_pval_threshold=1 step.secondary_signal_pval_threshold=1 step.purity_mean_r2_threshold=0 step.purity_min_r2_threshold=0 step.cs_lbf_thr=2 step.sum_pips=0.99 step.susie_est_tausq=False step.run_carma=False step.run_sumstat_imputation=False step.carma_time_limit=600 step.imputed_r2_threshold=0.9 step.ld_score_threshold=5 step.output_path_log=gs://gentropy-tmp/test_finemapped_logs +step.session.extended_spark_conf={spark.jars:https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar} +step.session.extended_spark_conf={spark.dynamicAllocation.enabled:false} +step.session.extended_spark_conf={spark.driver.memory:30g} +step.session.extended_spark_conf={spark.kryoserializer.buffer.max:500m} +step.session.extended_spark_conf={spark.driver.maxResultSize:5g} step.session.write_mode=overwrite"
+                                "poetry run gentropy step=susie_finemapping step.study_locus_to_finemap=$INPUTPATH step.study_index_path=gs://ukb_ppp_eur_data/study_index step.output_path=$OUTPUTPATH step.max_causal_snps=10 step.primary_signal_pval_threshold=1 step.secondary_signal_pval_threshold=1 step.purity_mean_r2_threshold=0 step.purity_min_r2_threshold=0 step.cs_lbf_thr=2 step.sum_pips=0.99 step.susie_est_tausq=False step.run_carma=False step.run_sumstat_imputation=False step.carma_time_limit=600 step.imputed_r2_threshold=0.9 step.ld_score_threshold=5 +step.session.extended_spark_conf={spark.jars:https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar} +step.session.extended_spark_conf={spark.dynamicAllocation.enabled:false} +step.session.extended_spark_conf={spark.driver.memory:30g} +step.session.extended_spark_conf={spark.kryoserializer.buffer.max:500m} +step.session.extended_spark_conf={spark.driver.maxResultSize:5g} step.session.write_mode=overwrite"
                             ],
                             "options": "-e HYDRA_FULL_ERROR=1"
                         }
@@ -30,29 +30,19 @@
                     }
                 ]
             },
-            "taskCount": 20,
+            "taskCount": 10,
             "parallelism": 4000,
             "taskEnvironments": [
-                {"variables": {"STUDYLOCUSID": "-9078210980949859586"}},
-                {"variables": {"STUDYLOCUSID": "-9024260234385924988"}},
-                {"variables": {"STUDYLOCUSID": "-8921801494737898413"}},
-                {"variables": {"STUDYLOCUSID": "-8847499198429990805"}},
-                {"variables": {"STUDYLOCUSID": "-8830098163830910813"}},
-                {"variables": {"STUDYLOCUSID": "-8637864086428121844"}},
-                {"variables": {"STUDYLOCUSID": "-8632744425517512608"}},
-                {"variables": {"STUDYLOCUSID": "-8136471330148168867"}},
-                {"variables": {"STUDYLOCUSID": "-7873164274361137516"}},
-                {"variables": {"STUDYLOCUSID": "-7850574406056022641"}},
-                {"variables": {"STUDYLOCUSID": "-7803323100530642211"}},
-                {"variables": {"STUDYLOCUSID": "-7632484323039790912"}},
-                {"variables": {"STUDYLOCUSID": "-7620223789867138814"}},
-                {"variables": {"STUDYLOCUSID": "-7444277578630167815"}},
-                {"variables": {"STUDYLOCUSID": "-6604573854069168209"}},
-                {"variables": {"STUDYLOCUSID": "-6440055143747046617"}},
-                {"variables": {"STUDYLOCUSID": "-6340214274609332517"}},
-                {"variables": {"STUDYLOCUSID": "-6273988578446848708"}},
-                {"variables": {"STUDYLOCUSID": "-6118118729586390833"}},
-                {"variables": {"STUDYLOCUSID": "-6003373067911764062"}}
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=-4875420583494530062/part-00132-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=-4875420583494530062/part-00132-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=2449331910204577420/part-00058-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=2449331910204577420/part-00058-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=2882125006476788651/part-00077-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=2882125006476788651/part-00077-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=5149163189737967785/part-00069-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=5149163189737967785/part-00069-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=7530607523033270690/part-00045-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=7530607523033270690/part-00045-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=7817416827048695229/part-00095-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_A1BG_P04217_OID30771_v1/studyLocusId=7817416827048695229/part-00095-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=-3603332164695210634/part-00061-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=-3603332164695210634/part-00061-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=-3727530566487910400/part-00029-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=-3727530566487910400/part-00029-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=-771229199423266821/part-00067-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=-771229199423266821/part-00067-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}},
+                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_09/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=7906770497215611142/part-00074-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/finemapping_2024_07_29/studyId=UKB_PPP_EUR_AAMDC_Q9H7C9_OID30236_v1/studyLocusId=7906770497215611142/part-00074-a492c618-2414-44cc-81bb-853f3cf40ce7.c000.snappy.parquet\""}}
             ]
         }
     ],

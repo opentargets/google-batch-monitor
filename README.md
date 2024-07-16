@@ -4,7 +4,6 @@
 
 Modify the configuration in [`config.json`](./config.json):
 
-- `remotePath` to point to a unique location (so that multiple runs can be done in parallel), for example: `gentropy-tmp/YOUR-UNIQUE-ID`
 - `taskCount` to specify the total number of tasks (dataframe rows)
 - Study loci in `taskEnvironments` (currently need to be specified manually)
 - Inputs, outputs, parameters of the step
@@ -26,8 +25,6 @@ Note the unique job ID that has been assigned. You will need it for monitoring.
 ## 3. Monitor job progress
 
 Job will shortly appear in the Google Batch dashboard (give it up to a minute): https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
-
-Logs for each individual task will appear under `gs://${REMOTE_PATH}/logs`.
 
 ## 4. Log resource usage
 
