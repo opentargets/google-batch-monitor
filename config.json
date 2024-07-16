@@ -33,16 +33,17 @@
             "taskCount": 10,
             "parallelism": 4000,
             "taskEnvironments": [
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-100264202236106684\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-100264202236106684\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1003316252301962239\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1003316252301962239\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1004868174906953211\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1004868174906953211\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1006239224182009862\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1006239224182009862\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1006937020556403582\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1006937020556403582\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1008456897338177588\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1008456897338177588\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1010034488940404728\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1010034488940404728\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1011122575369072357\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1011122575369072357\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-1011506982695378234\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-1011506982695378234\""}},
-                {"variables": {"INPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_data_collected_patched_2024_07_16/studyLocusId=-101200392719627092\"", "OUTPUTPATH": "\"gs://gentropy-tmp/tskir/ukb_ppp_eur_finemapping/studyLocusId=-101200392719627092\""}}            ]
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000055359928158073\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000055359928158073\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000091134667816162\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000091134667816162\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000109923752878816\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000109923752878816\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000584384880275722\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000584384880275722\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000644771391632574\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000644771391632574\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000675221032617504\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000675221032617504\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000676620208983420\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000676620208983420\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000695324331348967\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000695324331348967\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000887024286847306\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000887024286847306\""}},
+                {"variables": {"INPUTPATH": "\"gs://genetics-portal-dev-analysis/dc16/output/clean_loci.parquet/studyLocusId=-1000944084604280131\"", "OUTPUTPATH": "\"gs://genetics-portal-dev-analysis/tskir/gwas_catalog_finemapping/studyLocusId=-1000944084604280131\""}}
+            ]
         }
     ],
     "allocationPolicy": {
