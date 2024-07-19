@@ -16,8 +16,8 @@
                     }
                 ],
                 "computeResource": {
-                    "cpuMilli": 2000,
-                    "memoryMib": 12500
+                    "cpuMilli": VALUE_CPU_MILLI,
+                    "memoryMib": VALUE_MEMORY_MIB
                 },
                 "maxRunDuration": "7200s",
                 "maxRetryCount": 5,
@@ -31,14 +31,14 @@
                 ]
             },
             "taskCount": VALUE_TASK_COUNT,
-            "parallelism": 4000
+            "parallelism": VALUE_PARALLELISM
         }
     ],
     "allocationPolicy": {
         "instances": [
             {
                 "policy": {
-                    "machineType": "n2-standard-4",
+                    "machineType": "VALUE_VM_TYPE",
                     "provisioningModel": "SPOT",
                     "bootDisk": {
                         "sizeGb": 50
