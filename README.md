@@ -10,6 +10,7 @@ The first positional argument is job ID. (A job is a single submission which spa
 
 ```bash
 # 1. List collected loci.
+# Alternatively: if you need to manually run a list of loci, write them into /tmp/collected_loci in the format studyLocusId=12345...
 gsutil ls ${COLLECTED_LOCI} | grep studyLocusId | rev | cut -d'/' -f2 | rev > /tmp/collected_loci
 
 # 2. If needed: get the first N loci.
@@ -28,7 +29,7 @@ awk \
     > /tmp/loci_input_output
 
 # 4. Split the manifest into at most 100,000 long chunks.
-rm /tmp/batch_chunk_*
+rm -f /tmp/batch_chunk_*
 split -l 100000 /tmp/loci_input_output /tmp/batch_chunk_
 
 # 5. Operating on each chunk now.
@@ -110,6 +111,7 @@ Substitute the unique job ID you got from when you submitted the job.
 It will monitor instance memory usage and output it to screen and into a log file every few minutes. Once there are no instances remaining, it will exit automatically.
 
 ## 5. Extract logs
+
 ```bash
 # Set up Batch job ID. This was printed at the end of step 1.
 export GOOGLE_BATCH_JOB_ID=...
@@ -120,11 +122,21 @@ export MANIFEST=...
 mkdir -p logs_${GOOGLE_BATCH_JOB_ID} logs_${GOOGLE_BATCH_JOB_ID}/exit_statuses logs_${GOOGLE_BATCH_JOB_ID}/failed_logs
 cd logs_${GOOGLE_BATCH_JOB_ID}
 
+# Link task indexes to loci.
+gsutil cat $MANIFEST \
+    | tail -n+2 \
+    | cut -d',' -f1 \
+    | cut -d'=' -f2 \
+    | awk -v GOOGLE_BATCH_JOB_ID=$GOOGLE_BATCH_JOB_ID '{print GOOGLE_BATCH_JOB_ID "-group0-" NR - 1 "\t" $1}' \
+    | sort -k1,1 \
+    > task_to_locus
+
 # Collect instance logs.
 gcloud logging read \
     "resource.type=gce_instance AND labels.job_uid=$GOOGLE_BATCH_JOB_ID" \
     --project=open-targets-genetics-dev \
     --format=json \
+    --freshness=30d \
     > instance_log
 
 # Extract exit statuses.
@@ -137,7 +149,11 @@ jq -r \
     | tr '|' '\t' \
     | awk -F'\t' '{print $0 > "exit_statuses/" $2}'
 
-# Identify failed tasks.
+# Identify tasks which have not completed.
+comm -13 <(ls exit_statuses | sort) <(cut -f1 task_to_locus | sort) \
+| parallel echo -e 'no_timestamp\\t{}\\tnot_completed' '>' exit_statuses/{}
+
+# Identify failed tasks (this includes the not completed ones).
 tail -q -n1 exit_statuses/* \
     | awk -F'\t' '$3 > 0' \
     > failed_tasks
@@ -153,20 +169,13 @@ function fetch_logs () {
         "resource.type=batch.googleapis.com/Job AND labels.task_id=${TASK_ID}" \
         --project=open-targets-genetics-dev \
         --format=json \
+        --freshness=30d \
         | jq -r '.[] | "\(.timestamp)\t\(.labels.task_id)\t\(.textPayload)"' \
         | sort -k1,1 \
         > failed_logs/${RETURN_CODE}/${TASK_ID}
 }
 export -f fetch_logs
-parallel --colsep '\t' fetch_logs {2} {3} :::: failed_tasks
-
-# Link task indexes to loci.
-gsutil cat $MANIFEST \
-    | cut -d',' -f1 \
-    | cut -d'=' -f2 \
-    | awk -v GOOGLE_BATCH_JOB_ID=$GOOGLE_BATCH_JOB_ID '{print GOOGLE_BATCH_JOB_ID "-group0-" NR "\t" $1}' \
-    | sort -k1,1 \
-    > task_to_locus
+parallel --jobs 4 --colsep '\t' fetch_logs {2} {3} :::: failed_tasks
 
 # Rename logs of failed loci.
 find failed_logs -type f | parallel echo "{/},{}" | tr ',' '\t' | sort -k1,1 > /tmp/task_to_filename

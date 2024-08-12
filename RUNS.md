@@ -28,9 +28,9 @@ Run ID batch-example-2024-9984b186-ec63-42680. Observation: very smooth run, all
 # Input and output parameters.
 export STUDY_INDEX=gs://genetics_etl_python_playground/releases/24.06/study_index/gwas_catalog
 export COLLECTED_LOCI=gs://genetics-portal-dev-analysis/dc16/output/gwas_cat_clumped_collected.parquet
-export OUTPUT=gs://gentropy-tmp/gwas_finemapping_test/1_carma
+export OUTPUT=gs://gentropy-tmp/gwas_finemapping_test/1_carma_rerun1
 # Where to store the manifest for processing.
-export MANIFEST_PREFIX=gs://gentropy-tmp/finemapping-manifest/gwas_finemapping_test/1_carma
+export MANIFEST_PREFIX=gs://gentropy-tmp/finemapping-manifest/gwas_finemapping_test/1_carma_rerun1
 # Finemapping parameters.
 export FINEMAPPING_PARAMS="step.max_causal_snps=10 step.primary_signal_pval_threshold=1 step.secondary_signal_pval_threshold=1 step.purity_mean_r2_threshold=0 step.purity_min_r2_threshold=0 step.cs_lbf_thr=2 step.sum_pips=0.99 step.susie_est_tausq=False step.run_carma=True step.run_sumstat_imputation=False step.carma_time_limit=6000 step.imputed_r2_threshold=0.9 step.ld_score_threshold=5"
 # Computing parameters.
