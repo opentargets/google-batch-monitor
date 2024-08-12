@@ -9,7 +9,7 @@
                             "entrypoint": "/bin/sh",
                             "commands": [
                                 "-c",
-                                "poetry run gentropy step=susie_finemapping step.study_index_path=VALUE_STUDY_INDEX step.study_locus_manifest_path=VALUE_MANIFEST step.study_locus_index=$BATCH_TASK_INDEX VALUE_FINEMAPPING_PARAMS +step.session.extended_spark_conf={spark.jars:https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar} +step.session.extended_spark_conf={spark.dynamicAllocation.enabled:false} +step.session.extended_spark_conf={spark.driver.memory:30g} +step.session.extended_spark_conf={spark.kryoserializer.buffer.max:500m} +step.session.extended_spark_conf={spark.driver.maxResultSize:5g} step.session.write_mode=overwrite"
+                                "poetry run gentropy step=susie_finemapping step.study_index_path=VALUE_STUDY_INDEX step.study_locus_manifest_path=VALUE_MANIFEST step.study_locus_index=$BATCH_TASK_INDEX VALUE_FINEMAPPING_PARAMS +step.session.extended_spark_conf={spark.jars:https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-hadoop3-latest.jar} +step.session.extended_spark_conf={spark.dynamicAllocation.enabled:false} +step.session.extended_spark_conf={spark.driver.memory:30g} +step.session.extended_spark_conf={spark.kryoserializer.buffer.max:500m} +step.session.extended_spark_conf={spark.driver.maxResultSize:5g} +step.session.extended_spark_conf={spark.ui.showConsoleProgress:false} step.session.write_mode=overwrite"
                             ],
                             "options": "-e HYDRA_FULL_ERROR=1"
                         }
