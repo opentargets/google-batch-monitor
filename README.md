@@ -47,7 +47,7 @@ for CHUNK in /tmp/batch_chunk_*; do
     | sed -e "s@VALUE_PARALLELISM@${PARALLELISM}@g" \
     | sed -e "s@VALUE_VM_TYPE@${VM_TYPE}@g" \
     | sed -e "s@VALUE_CPU_MILLI@${CPU_MILLI}@g" \
-    | sed -e "s@MEMORY_MIB@${MEMORY_MIB}@g" \
+    | sed -e "s@VALUE_MEMORY_MIB@${MEMORY_MIB}@g" \
     > $CHUNK.json
     # 5c. Submit for processing.
     gcloud batch jobs submit \
@@ -63,7 +63,7 @@ Note the unique job ID(s) that has been assigned. You will need it for monitorin
 
 Job will shortly appear in the Google Batch dashboard (give it up to a minute): https://console.cloud.google.com/batch/jobs?referrer=search&project=open-targets-genetics-dev
 
-# Profiling
+## 3. Perform profiling
 
 You can create a VM which will monitor the resource usage:
 
@@ -108,3 +108,68 @@ bash monitor.sh UNIQUE_JOB_ID
 Substitute the unique job ID you got from when you submitted the job.
 
 It will monitor instance memory usage and output it to screen and into a log file every few minutes. Once there are no instances remaining, it will exit automatically.
+
+## 5. Extract logs
+```bash
+# Set up Batch job ID. This was printed at the end of step 1.
+export GOOGLE_BATCH_JOB_ID=...
+# *Full* path to the manifest of the given Batch run.
+export MANIFEST=...
+
+# Create folder for logs output.
+mkdir -p logs_${GOOGLE_BATCH_JOB_ID} logs_${GOOGLE_BATCH_JOB_ID}/exit_statuses logs_${GOOGLE_BATCH_JOB_ID}/failed_logs
+cd logs_${GOOGLE_BATCH_JOB_ID}
+
+# Collect instance logs.
+gcloud logging read \
+    "resource.type=gce_instance AND labels.job_uid=$GOOGLE_BATCH_JOB_ID" \
+    --project=open-targets-genetics-dev \
+    --format=json \
+    > instance_log
+
+# Extract exit statuses.
+jq -r \
+    '.[] | "\(.timestamp)\t\(.textPayload)"' \
+    instance_log \
+    | grep "Task task.*exited with status" \
+    | sort -k1,1 \
+    | sed -e 's@Task task/@@' -e 's@/./0 runnable 0 exited with status @|@' \
+    | tr '|' '\t' \
+    | awk -F'\t' '{print $0 > "exit_statuses/" $2}'
+
+# Identify failed tasks.
+tail -q -n1 exit_statuses/* \
+    | awk -F'\t' '$3 > 0' \
+    > failed_tasks
+
+# Make directory structure for exit codes.
+cut -f3 failed_tasks | sort -u | parallel mkdir failed_logs/{}
+
+# Fetch logs for failed tasks only.
+function fetch_logs () {
+    export TASK_ID=$1
+    export RETURN_CODE=$2
+    gcloud logging read \
+        "resource.type=batch.googleapis.com/Job AND labels.task_id=${TASK_ID}" \
+        --project=open-targets-genetics-dev \
+        --format=json \
+        | jq -r '.[] | "\(.timestamp)\t\(.labels.task_id)\t\(.textPayload)"' \
+        | sort -k1,1 \
+        > failed_logs/${RETURN_CODE}/${TASK_ID}
+}
+export -f fetch_logs
+parallel --colsep '\t' fetch_logs {2} {3} :::: failed_tasks
+
+# Link task indexes to loci.
+gsutil cat $MANIFEST \
+    | cut -d',' -f1 \
+    | cut -d'=' -f2 \
+    | awk -v GOOGLE_BATCH_JOB_ID=$GOOGLE_BATCH_JOB_ID '{print GOOGLE_BATCH_JOB_ID "-group0-" NR "\t" $1}' \
+    | sort -k1,1 \
+    > task_to_locus
+
+# Rename logs of failed loci.
+find failed_logs -type f | parallel echo "{/},{}" | tr ',' '\t' | sort -k1,1 > /tmp/task_to_filename
+join task_to_locus /tmp/task_to_filename | tr ' ' '\t' | cut -f2,3 > /tmp/locus_to_filename
+parallel --colsep '\t' mv {2} {2//}/{1} :::: /tmp/locus_to_filename
+```

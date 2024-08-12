@@ -20,12 +20,12 @@
                     "memoryMib": VALUE_MEMORY_MIB
                 },
                 "maxRunDuration": "7200s",
-                "maxRetryCount": 5,
+                "maxRetryCount": 3,
                 "lifecyclePolicies": [
                     {
-                        "action": "FAIL_TASK",
+                        "action": "RETRY_TASK",
                         "actionCondition": {
-                            "exitCodes": [50005]
+                            "exitCodes": [50001]
                         }
                     }
                 ]

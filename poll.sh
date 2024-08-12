@@ -20,8 +20,8 @@ LOAD=$(
 )
 # Restart, if needed
 RESTART="-"
-if [ "$LOAD" -lt 10 ] && [ "$UPTIME" -gt 300 ]; then
-    RESTART="RESTART"
-    gcloud compute ssh $NAME --zone $ZONE -- sudo reboot 2>/dev/null
-fi
+# if [ "$LOAD" -lt 10 ] && [ "$UPTIME" -gt 300 ]; then
+#     RESTART="RESTART"
+#     gcloud compute ssh $NAME --zone $ZONE -- sudo reboot 2>/dev/null
+# fi
 echo "$NAME,$ZONE,$MEMORY,$UPTIME,$LOAD,$RESTART"
