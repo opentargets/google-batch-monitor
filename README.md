@@ -155,7 +155,7 @@ comm -13 <(ls exit_statuses | sort) <(cut -f1 task_to_locus | sort) \
 
 # Identify failed tasks (this includes the not completed ones).
 tail -q -n1 exit_statuses/* \
-    | awk -F'\t' '$3 > 0' \
+    | awk -F'\t' '$3 != 0' \
     > failed_tasks
 
 # Make directory structure for exit codes.
