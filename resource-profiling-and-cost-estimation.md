@@ -48,4 +48,8 @@ Substitute the unique job ID you got from when you submitted the job.
 It will monitor instance memory usage and output it to screen and into a log file every few minutes. Once there are no instances remaining, it will exit automatically.
 
 ### 5. Create run report
-(To be added later)
+Paste the output of the profiling script into [this spreadsheet](https://docs.google.com/spreadsheets/d/1H8fTkE6WhqMl7Y-4QarD-QD_rmjXtmskzPlJArbiYXM).
+
+It will calculate cost estimate of a run and also produce plots for RAM usage and number of VMs, similar to these ones:
+
+![](plot-example.png)
