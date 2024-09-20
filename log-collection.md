@@ -1,5 +1,18 @@
 # Extract logs
 
+If not all tasks in a given Google Batch run have been successful, it can be difficult to debug the causes. This is because, when running in a Docker container, all logs go to the single CLOUD_LOGGING destination.
+
+The following script:
+1. Extracts the entire log for a given Google Batch run
+2. Separates the log entires by individual tasks
+3. Links internal task indexes to study locus IDs
+4. Only extracts those study locus IDs which failed
+5. Separates and collects logs according to the exit code
+
+Similarly to resource profiling, this is currently done manually after a run, but can be automated and integrated into orchestration DAGs to be done for every run.
+
+Here is the script:
+
 ```bash
 # Set up Batch job ID.
 export GOOGLE_BATCH_JOB_ID=...
