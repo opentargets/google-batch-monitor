@@ -7,10 +7,10 @@ To automatically install **Cloud Ops Agent** to the VM fleet one require the acc
 
 Once the metrics are collected, then they can be viewed from Google Cloud Monitoring service. See [`CARMA dashboard`](https://console.cloud.google.com/monitoring/dashboards/builder/e87aa472-e2ec-46d0-8218-fea6385f3bfc;filters=type:umlabel,key:benchmark,val:100-sample;startTime=2025-03-17T16:19:39.846Z;endTime=2025-03-17T16:42:49.120Z?hl=en&inv=1&invt=AbsSoQ&project=open-targets-genetics-dev) for a reference.
 
-> [!TIP] Default metrics
+> [!TIP]
 > By default the google cloud batch installs the Cloud Ops Agent with [`AllocationPolicy.instances.installOpsAgent`](https://cloud.google.com/batch/docs/create-run-job-ops-agent). This ensures that all available metrics in [`etc/google-cloud-ops-agent/config.yaml`](https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/configuration) are reported to the Metrics service.
 
-> [!WARNING] Container runnable
+> [!WARNING]
 > Currently specifying the `TaskSpec.Runnable.Container` does not install Cloud Ops Agent correctly - one should use the `TaskSpec.Runnable.Script` instead to profile the job.
 
 
@@ -87,5 +87,5 @@ The command will create a google batch job with respect to the input manifest an
 
 The collected metrics are listed in the [`CARMA dashboard`](https://console.cloud.google.com/monitoring/dashboards/builder/e87aa472-e2ec-46d0-8218-fea6385f3bfc;filters=type:umlabel,key:benchmark,val:100-sample;startTime=2025-03-17T16:19:39.846Z;endTime=2025-03-17T16:42:49.120Z?hl=en&inv=1&invt=AbsSoQ&project=open-targets-genetics-dev) for a reference.
 
-> [!NOTE] Test run results
+> [!NOTE] 
 > All test descriptions, including parameters used for the runs should be collected in the dashboard.

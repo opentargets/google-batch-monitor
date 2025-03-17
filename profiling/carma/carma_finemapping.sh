@@ -79,7 +79,7 @@ function main() {
         # In case the directory does not exist we are in the fresh VM and need to install the tools
         install_libs
         install_java
-        instll_uv
+        install_uv
         prepare_gentropy
     fi
     run_carma
