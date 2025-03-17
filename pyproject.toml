@@ -1,0 +1,13 @@
+[project]
+name = "google-batch-monitor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-cloud-batch>=0.17.34",
+    "google-cloud-profiler>=4.1.0",
+    "google-cloud-storage>=3.1.0",
+    "loguru>=0.7.3",
+    "pandas[ffspec,gcp,gcs,google]>=2.2.3",
+]

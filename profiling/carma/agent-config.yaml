@@ -1,0 +1,22 @@
+# Add this file to the /etc/google-cloud-ops-agent/config.yaml on running VMs to enable additional host metrics
+# See docs on how to configure the agent: https://cloud.google.com/stackdriver/docs/solutions/agents/ops-agent/installation
+metrics:
+  receivers:
+    host_metrics:
+      type: hostmetrics
+      collection_interval: 60s
+  processors:
+    metrics_filter:
+      type: exclude_metrics
+      metrics_pattern:
+# Exclude the following metrics to reduce the amount of data sent to Stackdriver
+      - agent.googleapis.com/processes/*
+      - agent.googleapis.com/gpu/*
+      - agent.googleapis.com/interface/*
+      - agent.googleapis.com/network/*
+      - agent.googleapis.com/swap/*
+  service:
+    pipelines:
+      default_pipeline:
+        receivers: [host_metrics]
+        processors: [metrics_filter]
